@@ -1,0 +1,53 @@
+syntax = "proto2";
+
+message MarketSnapshot {
+    required string trading_day = 1;
+    required string instrument_id = 2;
+    required string exchange_id = 3;
+    required string exchange_inst_id = 4;
+
+    required double last_price = 5;
+    required double pre_settlement_price = 6;
+    required double pre_close_price = 7;
+    required double pre_open_interest = 8;
+    required double open_price = 9;
+    required double highest_price = 10;
+    required double lowest_price = 11;
+    required int32 volume = 12;
+    required double turnover = 13;
+    required double open_interest = 14;
+    required double close_price = 15;
+    required double settlement_price = 16;
+    required double upper_limit_price = 17;
+    required double lower_limit_price = 18;
+
+    required double pre_delta = 19;
+    required double curr_delta = 20;
+
+    required string update_time = 21;
+    required int32  update_millisec = 22;
+
+    required double bid_price_1 = 23;
+    required int32 bid_volume_1 = 24;
+    required double ask_price_1 = 25;
+    required int32 ask_volume_1 = 26;
+    required double bid_price_2 = 27;
+    required int32 bid_volume_2 = 28;
+    required double ask_price_2 = 29;
+    required int32 ask_volume_2 = 30;
+    required double bid_price_3 = 31;
+    required int32 bid_volume_3 = 32;
+    required double ask_price_3 = 33;
+    required int32 ask_volume_3 = 34;
+    required double bid_price_4 = 35;
+    required int32 bid_volume_4 = 36;
+    required double ask_price_4 = 37;
+    required int32 ask_volume_4 = 38;
+    required double bid_price_5 = 39;
+    required int32 bid_volume_5 = 40;
+    required double ask_price_5 = 41;
+    required int32 ask_volume_5 = 42;
+
+    required double average_price = 43;
+    required string action_day = 44;
+}
