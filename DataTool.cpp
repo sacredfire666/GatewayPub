@@ -7,9 +7,23 @@
 #include <iostream>
 #include <unistd.h>
 #include <thread>
+#include "rapidjson/stringbuffer.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "rapidjson/filereadstream.h"
+#include <cstdio>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "rapidjson/filereadstream.h"
+#include <cstdio>
 
 using namespace std;
-
+using namespace rapidjson;
 atomic_bool DataTool::bConnected = {false};
 atomic_bool DataTool::bLogin = {false};
 
@@ -20,11 +34,29 @@ void DataTool::Init()
     m_pMdApi = CThostFtdcMdApi::CreateFtdcMdApi();
     cout<<"CTP API version: "<<CThostFtdcMdApi::GetApiVersion()<<endl;
     m_pMdApi->RegisterSpi(m_pMdSpi.get());
-    //m_szMdFrontAddr = "tcp://180.168.146.187:10110";
-    m_szMdFrontAddr = "tcp://180.168.146.187:10131";
-    m_szUserID = "156349";
-    m_szPassword = "gengar";
-    m_szBrokerID = "9999";
+
+    const char* filename = "login.json";
+    FILE* fp = fopen("login.json", "r"); // 非Windows平台使用"r"
+    if (fp==nullptr) {
+        // Default log in info
+        cout<<"Fail to read file "<<filename<<endl;
+        m_szMdFrontAddr = "tcp://180.168.146.187:10110";
+        //m_szMdFrontAddr = "tcp://180.168.146.187:10131";
+        m_szUserID = "156349";
+        m_szPassword = "gengar";
+        m_szBrokerID = "9999";
+	}
+    char readBuffer[65536];
+    FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+    fclose(fp);
+
+    Document d;
+    d.ParseStream(is);
+    m_szMdFrontAddr = d["FrontAddr"].GetString();
+    m_szUserID = d["UserID"].GetString();
+    m_szPassword = d["Password"].GetString();
+    m_szBrokerID = d["BrokerID"].GetString();
+
 }
 
 void DataTool::ConnectFront()
@@ -38,7 +70,6 @@ void DataTool::ConnectFront()
         this_thread::sleep_for(chrono::seconds(1));
         if(bConnected) break;
     }
-
 }
 
 void DataTool::Login()

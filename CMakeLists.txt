@@ -4,6 +4,7 @@ project (GatewayPub)
 add_definitions(-std=c++11)
 
 SET(SRC_LIST main.cpp Publisher.cpp MdSpi.cpp DataTool.cpp DataTool.h Proxy.cpp Proxy.h)
+file(COPY config/login.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 include_directories(./api)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/api)
@@ -30,3 +31,5 @@ ADD_EXECUTABLE(client client.cpp Proxy.cpp ${MARKETPROTO_HDRS} ${MARKETPROTO_SRC
 
 target_link_libraries(main ${PROTOBUF_LIBRARIES} zmq thostmduserapi_se)
 target_link_libraries(client ${PROTOBUF_LIBRARIES} zmq)
+
+
