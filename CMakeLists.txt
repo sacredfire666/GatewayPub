@@ -5,6 +5,7 @@ add_definitions(-std=c++11)
 
 SET(SRC_LIST main.cpp Publisher.cpp MdSpi.cpp DataTool.cpp DataTool.h Proxy.cpp Proxy.h)
 file(COPY config/login.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY config/instruments.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 include_directories(./api)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/api)

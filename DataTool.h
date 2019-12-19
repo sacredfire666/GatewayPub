@@ -10,7 +10,7 @@
 
 class DataTool {
 public:
-    DataTool() = default;
+    DataTool();
     ~DataTool() = default;
     static std::atomic_bool bConnected;
     static std::atomic_bool bLogin;
@@ -29,5 +29,7 @@ private:
     std::string m_szPassword;
     std::string m_szBrokerID;
     std::string m_szMdFrontAddr;
+    const char* instrumentsID[65535];
+    int m_nIns;
 };
 
