@@ -10,9 +10,14 @@
 #include "Subscriber.h"
 using namespace std;
 
-int main ()  
+int main(int argc, char* argv[])
 {
-    Subscriber sub;
+    const char* instrument;
+    if(argc==2)
+        instrument = argv[1];
+    else
+        instrument = "cu2001";
+    Subscriber sub(instrument);
     sub.GetDataLoop();
 
     return 0;

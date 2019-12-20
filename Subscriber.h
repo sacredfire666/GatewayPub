@@ -8,10 +8,11 @@
 
 class Subscriber {
 public:
-    Subscriber();
+    explicit Subscriber(const char* instrument);
     void GetDataLoop();
 
 private:
+    const char* instrument;
     zmq::context_t context;
     zmq::socket_t subscriber;
 };
